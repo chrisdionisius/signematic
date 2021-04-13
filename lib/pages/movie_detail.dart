@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:signematic/models/movie.dart';
-
 class MovieDetail extends StatelessWidget {
   final Movie movie;
   final String imgPath = 'https://image.tmdb.org/t/p/w500';
@@ -27,34 +26,65 @@ class MovieDetail extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                  child: RichText(
-                text: TextSpan(
-                  style: Theme.of(context).textTheme.bodyText2,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.grey[900],
+                ),
+                padding: EdgeInsets.only(left: 16, right: 16, top: 10),
+                child: Column(
                   children: [
-                    TextSpan(
-                        text: movie.title + ' (',
-                        style: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.bold)),
-                    WidgetSpan(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                        child: Icon(Icons.star),
+                    Image.network(path),
+                    Text(
+                      movie.title,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        style: Theme.of(context).textTheme.bodyText2,
+                        children: [
+                          TextSpan(
+                            text: ' (',
+                            style: TextStyle(
+                                fontSize: 23,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                          WidgetSpan(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 2.0),
+                              child: Icon(Icons.star, color: Colors.yellow),
+                            ),
+                          ),
+                          TextSpan(
+                            text: movie.voteAverage.toString() + ' )',
+                            style: TextStyle(fontSize: 23, color: Colors.white),
+                          ),
+                        ],
                       ),
                     ),
-                    TextSpan(
-                        text: movie.voteAverage.toString() + ' )',
-                        style: TextStyle(fontSize: 23)),
                   ],
                 ),
-              )),
-              Container(
-                padding: EdgeInsets.all(16),
-                height: height / 1.5,
-                child: Image.network(path),
               ),
               Container(
-                child: Text(movie.overview),
-                padding: EdgeInsets.only(left: 16, right: 16),
+                width: double.infinity,
+                padding: EdgeInsets.only(left: 16, right: 16, top: 10),
+                child: Text(
+                  'Overview',
+                  style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Container(
+                child: Text(
+                  '  ' + movie.overview,
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+                padding: EdgeInsets.only(left: 16, right: 16, top: 10),
               )
             ],
           ),
