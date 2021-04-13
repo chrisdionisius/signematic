@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:signematic/models/movie.dart';
+
 class MovieDetail extends StatelessWidget {
   final Movie movie;
   final String imgPath = 'https://image.tmdb.org/t/p/w500';
@@ -28,14 +30,50 @@ class MovieDetail extends StatelessWidget {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.grey[900],
+                  image: DecorationImage(
+                    colorFilter: ColorFilter.matrix(<double>[
+                      0.2126,
+                      0.7152,
+                      0.0722,
+                      0,
+                      0,
+                      0.2126,
+                      0.7152,
+                      0.0722,
+                      0,
+                      0,
+                      0.2126,
+                      0.7152,
+                      0.0722,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                    ]),
+                    image: NetworkImage(path),
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 padding: EdgeInsets.only(left: 16, right: 16, top: 10),
                 child: Column(
                   children: [
-                    Image.network(path),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.8),
+                            spreadRadius: 1,
+                            blurRadius: 2, // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Image.network(path),
+                    ),
                     Text(
-                      movie.title,
+                      movie.title + ' (' + movie.date.year.toString() + ')',
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           fontSize: 23,
@@ -46,13 +84,6 @@ class MovieDetail extends StatelessWidget {
                       text: TextSpan(
                         style: Theme.of(context).textTheme.bodyText2,
                         children: [
-                          TextSpan(
-                            text: ' (',
-                            style: TextStyle(
-                                fontSize: 23,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
                           WidgetSpan(
                             child: Padding(
                               padding:
@@ -61,7 +92,7 @@ class MovieDetail extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: movie.voteAverage.toString() + ' )',
+                            text: movie.voteAverage.toString(),
                             style: TextStyle(fontSize: 23, color: Colors.white),
                           ),
                         ],

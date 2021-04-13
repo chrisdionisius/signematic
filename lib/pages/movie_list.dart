@@ -33,6 +33,7 @@ class _MovieListState extends State<MovieList> {
   Widget build(BuildContext context) {
     final src = 'https://image.tmdb.org/t/p/w500';
     return Scaffold(
+      backgroundColor: const Color(0xff252c48),
       appBar: AppBar(
         title: Text("Popular Movies"),
       ),
@@ -44,7 +45,10 @@ class _MovieListState extends State<MovieList> {
             elevation: 2.0,
             child: ListTile(
                 leading: Image.network(src + movies[position].posterPath),
-                title: Text(movies[position].title),
+                title: Text(movies[position].title +
+                    ' (' +
+                    movies[position].date.year.toString() +
+                    ')'),
                 subtitle: Text(
                   'Rating = ' + movies[position].voteAverage.toString(),
                 ),
